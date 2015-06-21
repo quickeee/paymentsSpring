@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+    <definition name="base.definition" template="/WEB-INF/jsp/views/mainTemplate.jsp">
+        <put-attribute name="title" value=""/>
+        <put-attribute name="header" value="/WEB-INF/jsp/views/header.jsp"/>
+        <put-attribute name="menu" value="/WEB-INF/jsp/views/menu.jsp"/>
+        <put-attribute name="body" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/jsp/views/footer.jsp"/>
+    </definition>
+
+    <definition extends="base.definition" name="welcome">
+        <put-attribute name="title" value="Welcome"></put-attribute>
+        <put-attribute name="body" value="index.jsp"></put-attribute>
+    </definition>
+
+   <definition extends="base.definition" name="login">
+        <put-attribute name="title" value="Login"></put-attribute>
+        <put-attribute name="body" value="/WEB-INF/jsp/pages/login.jsp"></put-attribute>
+    </definition>
+
+    <definition extends="base.definition" name="registration">
+        <put-attribute name="title" value="Create new client"></put-attribute>
+        <put-attribute name="body" value="/WEB-INF/jsp/pages/createClient.jsp"></put-attribute>
+    </definition>
+    <definition extends="base.definition" name="clientControlService">
+        <put-attribute name="title" value="Control client"></put-attribute>
+        <put-attribute name="body" value="/WEB-INF/jsp/pages/clientControlService.jsp"></put-attribute>
+    </definition>
+    <definition extends="base.definition" name="listClient">
+        <put-attribute name="title" value="Clients list"></put-attribute>
+        <put-attribute name="body" value="/WEB-INF/jsp/pages/listClients.jsp"></put-attribute>
+    </definition>
+    <definition extends="base.definition" name="profileClient">
+        <put-attribute name="title" value="Control client"></put-attribute>
+        <put-attribute name="body" value="/WEB-INF/jsp/pages/profileClient.jsp"></put-attribute>
+    </definition>
+</tiles-definitions>
