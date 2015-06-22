@@ -40,10 +40,9 @@ public class ClientController {
     @Autowired
     private IOrderService orderService;
 
-    @RequestMapping(value = "/controlClient", method = RequestMethod.POST)
+    @RequestMapping(value = "/controlClient.do", method = RequestMethod.GET)
     public ModelAndView controlClient(
-            @RequestParam(PARAM_ORDER_BANK_ACCOUNT_ID) int bankAccountID,
-            @RequestParam(PARAM_ORDER_SUM) double sumOrder) {
+            @RequestParam(PARAM_ORDER_BANK_ACCOUNT_ID) int bankAccountID) {
 
         Client client = clientService.getClientByBankAccountID(bankAccountID);
         BankAccount bankAccount = bankAccountService.getBankAccount(bankAccountID);
@@ -52,29 +51,28 @@ public class ClientController {
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("clientBean", prepareClientBean(client, bankAccount, orderList));
 
-        return new ModelAndView("clientControlService", model);
+        return new ModelAndView(PAGE_TILES_ADMIN_INFO_CLIENT, model);
     }
 
-    @RequestMapping(value = "/createClient", method = RequestMethod.POST)
+    @RequestMapping(value = "/createClient.do", method = RequestMethod.POST)
     public String createClient(
             @RequestParam(PARAM_CLIENT_LOGIN) String login,
             @RequestParam(PARAM_CLIENT_PASSWORD) String password,
             @RequestParam(PARAM_CLIENT_FIRST_NAME) String firstName,
             @RequestParam(PARAM_CLIENT_LAST_NAME) String lastName) {
-
-
-        return "welcome";
+        clientService.addClient(login, password, firstName, lastName);
+        return PAGE_TILES_WELCOME;
     }
 
-    @RequestMapping(value = "/controlClient", method = RequestMethod.POST)
+    @RequestMapping(value = "/listClient.do", method = RequestMethod.GET)
     public ModelAndView listClient() {
         List<Client> clientList = clientService.getAll();
         Map<String, Object> model = new HashMap<String, Object>();
         model.put(PARAM_CLIENTS, prepareClientListBean(clientList));
-        return new ModelAndView(PAGE_LIST_CLIENTS, model);
+        return new ModelAndView(PAGE_TILES_LIST_CLIENTS, model);
     }
 
-    @RequestMapping(value = "/profileClient", method = RequestMethod.POST)
+    @RequestMapping(value = "/profileClient.do", method = RequestMethod.POST)
     public ModelAndView profileClient(
             @RequestParam(PARAM_CLIENT_LOGIN) String login){
         Client client = clientService.getClientByLogin(login);
@@ -85,7 +83,7 @@ public class ClientController {
 
         model.put(PARAM_BANK_ACCOUNT_TRANSFER_ID_LIST, bankAccountService.getBankAccountIDList());
 
-        return new ModelAndView(PAGE_PROFILE_CLIENT, model);
+        return new ModelAndView(PAGE_TILES_USER_INFO_CLIENT, model);
     }
 
     /*
@@ -146,6 +144,7 @@ public class ClientController {
             bean.setLogin(client.getLogin());
             bean.setFirstName(client.getFirstName());
             bean.setLastName(client.getLastName());
+            bean.setBankAccountID(client.getBankAccountID());
             beanList.add(bean);
         }
         return beanList;

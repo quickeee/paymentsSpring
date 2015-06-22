@@ -1,6 +1,6 @@
 package by.academy.it.bean.impl;
 
-import by.academy.it.bean.*;
+import by.academy.it.bean.IOrderBean;
 
 //@Repository
 public class OrderBean implements IOrderBean {

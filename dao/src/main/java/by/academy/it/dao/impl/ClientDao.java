@@ -6,6 +6,7 @@ import by.academy.it.dao.IUserDao;
 import by.academy.it.dao.exceptions.DaoException;
 import by.academy.it.entity.Client;
 //import by.academy.it.utils.HibernateUtil;
+import by.academy.it.utils.HibernateUtil;
 import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -38,7 +39,8 @@ public class ClientDao extends BaseDao<Client> implements IClientDao, IUserDao {
     public Client getClientByBankAccountID(int bankAccountID) throws DaoException {
         try {
             String hql = "select C from by.academy.it.entity.Client C where C.bankAccountID=:bankAccountID";
-            Query query = currentSession().createQuery(hql);
+            Session session = HibernateUtil.getHibernateUtil().getSession();
+            Query query = session.createQuery(hql);
             query.setParameter("bankAccountID", bankAccountID);
             List result = query.list();
             for (Object client : result) {
@@ -54,7 +56,8 @@ public class ClientDao extends BaseDao<Client> implements IClientDao, IUserDao {
     public Client getClientByLogin(String login) throws DaoException {
         try {
             String hql = "select C from by.academy.it.entity.Client C where C.login=:login";
-            Query query = currentSession().createQuery(hql);
+            Session session = HibernateUtil.getHibernateUtil().getSession();
+            Query query = session.createQuery(hql);
             query.setParameter("login", login);
             List result = query.list();
             for (Object client : result) {
@@ -69,7 +72,8 @@ public class ClientDao extends BaseDao<Client> implements IClientDao, IUserDao {
     @Override
     public boolean loginUser(String login, String password) throws DaoException {
         try {
-            Criteria criteria = currentSession().createCriteria(Client.class);
+            Session session = HibernateUtil.getHibernateUtil().getSession();
+            Criteria criteria = session.createCriteria(Client.class);
             criteria.add(Restrictions.eq("login", login));
             List list = criteria.list();
             String resievedPass = ((Client) list.get(0)).getPassword();

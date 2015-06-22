@@ -25,12 +25,12 @@
 	<!-- Определяем папки, в которых будем автоматически искать бины-компоненты (@Component, @Service)  -->
 	<context:component-scan base-package="by.academy.it.dao" />
 	<context:component-scan base-package="by.academy.it.service" />
-	<context:component-scan base-package="by.academy.it.bean" />
+	<!--<context:component-scan base-package="by.academy.it.bean" />-->
 
 	<!-- Файл с настройками ресурсов для работы с данными (Data Access Resources) -->
 	<import resource="data.xml" />
 				
 	<!-- Файл с настройками безопасности -->
-	<import resource="security.xml" />
+	<import resource="spring-security.xml" />
 
 </beans>

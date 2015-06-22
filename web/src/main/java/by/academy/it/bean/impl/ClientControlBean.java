@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by sam on 21.06.2015.
  */
-import by.academy.it.bean.*;
+import by.academy.it.bean.IClientBean;
 
 //@Repository
 public class ClientControlBean implements IClientBean{

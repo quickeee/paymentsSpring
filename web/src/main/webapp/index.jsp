@@ -1,12 +1,12 @@
-<%@ include file="/pages/include/include.jsp"%>
+<%@ include file="WEB-INF/jsp/pages/include/include.jsp"%>
 <html>
 <head>
     <title></title>
 </head>
 <body>
-<%@ include file="/pages/include/welcomeHeader.jsp" %>
-<%@ include file="/pages/include/linkMainPage.jsp" %>
-<form action="/PaymentControl" method="get">
+<%@ include file="WEB-INF/jsp/pages/include/welcomeHeader.jsp" %>
+<%@ include file="WEB-INF/jsp/pages/include/linkMainPage.jsp" %>
+<form action="" method="get">
     <table>
         <tr>
             <td>
@@ -15,9 +15,10 @@
         </tr>
         <tr>
             <td>
-                <a href="PaymentControl?page=list_clients"><fmt:message key="index.title.list.clients"/></a>
+                <a href="/listClient.do"><fmt:message key="index.title.list.clients"/></a>
             </td>
         </tr>
     </table>
+    </form>
 </body>
 </html>

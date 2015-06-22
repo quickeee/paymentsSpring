@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="/pages/include/include.jsp" %>
+<%@ include file="include/include.jsp" %>
 <html>
 <head>
     <title></title>
@@ -18,7 +18,7 @@
     </style>
 </head>
 <body>
-<%@ include file="/pages/include/welcomeHeader.jsp" %>
+<%@ include file="include/welcomeHeader.jsp" %>
 <fieldset>
     <legend><fmt:message key="client.control.service.controlClientTitle"/> <b><%=username%>
     </b></legend>
@@ -37,16 +37,16 @@
                     </tr>
                     <tr>
                         <td>
-                            ${client.login}
+                            ${clientBean.login}
                         </td>
                         <td>
-                            ${client.firstName}
+                            ${clientBean.firstName}
                         </td>
                         <td>
-                            ${client.lastName}
+                            ${clientBean.lastName}
                         </td>
                         <td>
-                            ${client.bankAccountID}
+                            ${clientBean.bankAccountID}
                         </td>
                     </tr>
                 </table>
@@ -63,16 +63,16 @@
                     </tr>
                     <tr>
                         <td>
-                            ${bankAccount.id}
+                            ${clientBean.bankAccountID}
                         </td>
                         <td>
-                            ${bankAccount.sum}
+                            ${clientBean.sum}
                         </td>
                          <td>
-                            ${bankAccount.blocked}
+                            ${clientBean.blocked}
                         </td>
                         <td>
-                            ${bankAccount.creditCardID}
+                            ${clientBean.creditCardID}
                         </td>
                     </tr>
                 </table>
@@ -90,7 +90,7 @@
 
                     </tr>
 
-                    <c:forEach var="order" items="${orderList}">
+                    <c:forEach var="order" items="${clientBean.orderList}">
                         <tr>
                             <td>
                                     ${order.id}
@@ -115,16 +115,16 @@
                     </thead>
                     <tr>
                         <td>
-                            <a href="/PaymentControl?page=BLOCK_CREDIT_CARD&bankAccountID=${client.bankAccountID}&blocked=${!bankAccount.blocked}"><c:choose><c:when
-                                    test="${bankAccount.blocked}"><fmt:message
+                            <a href="/blockBankAccount.do?bankAccountID=${clientBean.bankAccountID}&blocked=${!clientBean.blocked}"><c:choose><c:when
+                                    test="${clientBean.blocked}"><fmt:message
                                     key="client.control.service.enableEvents.unblock"/></c:when><c:otherwise><fmt:message
                                     key="client.control.service.enableEvents.block"/></c:otherwise></c:choose></a>
                         </td>
                         <td>
-                            <form action="/PaymentControl" method="get">
-                                <input type="hidden" name="page" value="CREATE_ORDER">
-                                <input type="hidden" name="login" value="${client.login}">
-                                <input type="hidden" name="bankAccountID" value="${client.bankAccountID}">
+                            <form action="/addOrder.do" method="get">
+                                <%--<input type="hidden" name="page" value="CREATE_ORDER">--%>
+                                <%--<input type="hidden" name="login" value="${client.login}">--%>
+                                <input type="hidden" name="bankAccountID" value="${clientBean.bankAccountID}">
                                 <table width="100%">
                                     <tr>
                                         <td><fmt:message key="client.control.service.enableEvents.createOrder"/>

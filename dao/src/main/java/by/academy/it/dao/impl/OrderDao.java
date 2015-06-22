@@ -4,6 +4,7 @@ import by.academy.it.dao.BaseDao;
 import by.academy.it.dao.IOrderDao;
 import by.academy.it.dao.exceptions.DaoException;
 import by.academy.it.entity.Order;
+import by.academy.it.utils.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -23,7 +24,8 @@ public class OrderDao extends BaseDao<Order> implements IOrderDao {
     public List<Order> getOrderListByBankAccount(int bankAccountID) throws DaoException {
         List list = Collections.emptyList();
         try {
-            Criteria criteria = currentSession().createCriteria(Order.class);
+            Session session = HibernateUtil.getHibernateUtil().getSession();
+            Criteria criteria = session.createCriteria(Order.class);
             criteria.add(Restrictions.eq("bankAccount.id", bankAccountID));
             list = criteria.list();
         } catch (HibernateException e) {
@@ -35,9 +37,10 @@ public class OrderDao extends BaseDao<Order> implements IOrderDao {
     @Override
     public void setOrderPay(int orderID, boolean isPaid) throws DaoException {
         try {
-            Order order = (Order) currentSession().get(Order.class, orderID);
+            Session session = HibernateUtil.getHibernateUtil().getSession();
+            Order order = (Order) session.get(Order.class, orderID);
             order.setPaid(isPaid);
-            currentSession().flush();
+            session.flush();
         } catch (HibernateException e) {
             throw new DaoException(e);
         }

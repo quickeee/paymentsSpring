@@ -36,7 +36,7 @@ public class ClientServiceImpl implements IClientService {
     @Autowired
     private ICreditCardDao creditCardDao;// = new BankAccountDao();
 
-    @Autowired
+//    @Autowired
     TransactionTemplate transactionTemplate;
 
     public TransactionTemplate getTransactionTemplate() {

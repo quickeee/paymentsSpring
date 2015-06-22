@@ -2,6 +2,7 @@ package by.academy.it.dao;
 
 
 import by.academy.it.dao.exceptions.DaoException;
+import by.academy.it.utils.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.*;
 import org.hibernate.criterion.Order;
@@ -15,28 +16,31 @@ import java.util.Collections;
 import java.util.List;
 
 
-@Repository
+//@Repository
 public class BaseDao<T> implements Dao<T> {
     private static Logger log = Logger.getLogger(BaseDao.class);
 
-    @Autowired
-    protected SessionFactory sessionFactory;
-//    private Transaction transaction = null;
+//    @Autowired
+//    protected SessionFactory sessionFactory;
+    private Transaction transaction = null;
 
-    public BaseDao(SessionFactory sessionFactory) {
+/*    public BaseDao(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-    }
+    }*/
 
     public BaseDao() {
     }
 
+/*
     protected Session currentSession() {
         return sessionFactory.getCurrentSession();
     }
+*/
 
     public void save(T t) throws DaoException {
         try {
-            currentSession().save(t);
+            Session session = HibernateUtil.getHibernateUtil().getSession();
+            session.save(t);
             log.info("save(t):" + t);
         } catch (HibernateException e) {
             throw new DaoException(e);
@@ -45,7 +49,8 @@ public class BaseDao<T> implements Dao<T> {
 
     public void saveOrUpdate(T t) throws DaoException {
         try {
-            currentSession().saveOrUpdate(t);
+            Session session = HibernateUtil.getHibernateUtil().getSession();
+            session.saveOrUpdate(t);
             log.info("saveOrUpdate(t):" + t);
         } catch (HibernateException e) {
             throw new DaoException(e);
@@ -56,7 +61,9 @@ public class BaseDao<T> implements Dao<T> {
         log.info("Get class by id:" + id);
         T t = null;
         try {
-            t = (T) currentSession().get(getPersistentClass(), id);
+            Session session = HibernateUtil.getHibernateUtil().getSession();
+
+            t = (T) session.get(getPersistentClass(), id);
             log.info("get clazz:" + t);
         } catch (HibernateException e) {
             log.error("Error get " + getPersistentClass() + " in Dao" + e);
@@ -68,11 +75,17 @@ public class BaseDao<T> implements Dao<T> {
     public List<T> getAll() throws DaoException {
         List<T> list = Collections.emptyList();
         try {
-            Criteria criteria = currentSession().createCriteria(getPersistentClass());
+            Session session = HibernateUtil.getHibernateUtil().getSession();
+
+            transaction = session.beginTransaction();
+            Criteria criteria = session.createCriteria(getPersistentClass());
+
             criteria.addOrder(Order.desc("id"));
             list = (List<T>) criteria.list();
+            transaction.commit();
             log.info("getAll, size=" + list.size());
         } catch (HibernateException e) {
+            transaction.rollback();
             log.error("Error get " + getPersistentClass() + " in Dao" + e);
             throw new DaoException(e);
         }
@@ -83,7 +96,9 @@ public class BaseDao<T> implements Dao<T> {
         log.info("Load class by id:" + id);
         T t = null;
         try {
-            t = (T) currentSession().load(getPersistentClass(), id);
+            Session session = HibernateUtil.getHibernateUtil().getSession();
+
+            t = (T) session.load(getPersistentClass(), id);
             log.info("load() clazz:" + t);
         } catch (HibernateException e) {
             log.error("Error load() " + getPersistentClass() + " in Dao" + e);
@@ -94,7 +109,8 @@ public class BaseDao<T> implements Dao<T> {
 
     public void delete(T t) throws DaoException {
         try {
-            currentSession().delete(t);
+            Session session = HibernateUtil.getHibernateUtil().getSession();
+            session.delete(t);
             log.info("Delete:" + t);
         } catch (HibernateException e) {
             log.error("Error save or update PERSON in Dao" + e);

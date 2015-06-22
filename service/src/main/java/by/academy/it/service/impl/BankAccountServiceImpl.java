@@ -30,7 +30,7 @@ public class BankAccountServiceImpl implements IBankAccountService {
     @Autowired
     private IOrderDao orderDao;
 
-    @Autowired
+//    @Autowired
     TransactionTemplate transactionTemplate;
 
     public TransactionTemplate getTransactionTemplate() {

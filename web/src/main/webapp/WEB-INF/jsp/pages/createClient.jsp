@@ -1,4 +1,4 @@
-<%@ include file="/pages/include/include.jsp" %>
+<%@ include file="include/include.jsp" %>
 <html>
 <head>
     <title><fmt:message key="create.client.title.page"/></title>
@@ -6,8 +6,8 @@
 <body>
 <fieldset>
     <legend><fmt:message key="create.client.title.group"/></legend>
-    <form action="/PaymentControl" method="get">
-        <input type="hidden" name="page" value="CREATE_CLIENT">
+    <form action="/createClient.do" method="post">
+        <%--<input type="hidden" name="page" value="CREATE_CLIENT">--%>
         <table width="400" align="justify">
             <tr align="right">
                 <td>

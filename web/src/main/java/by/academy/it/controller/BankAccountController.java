@@ -26,7 +26,7 @@ public class BankAccountController {
 //    @Autowired
 //    private IOrderService orderService;
 
-    @RequestMapping(value = "/blockBankAccount", method = RequestMethod.POST)
+    @RequestMapping(value = "/blockBankAccount.do", method = RequestMethod.POST)
     public String blockBankAccount(
             @RequestParam(PARAM_CLIENT_BANK_ACCOUNT_ID) int bankAccountID,
             @RequestParam(PARAM_BANK_ACCOUNT_BLOCKED) boolean blockBankAccount) {
@@ -34,7 +34,7 @@ public class BankAccountController {
         return "";
     }
 
-    @RequestMapping(value = "/payOrder", method = RequestMethod.POST)
+    @RequestMapping(value = "/payOrder.do", method = RequestMethod.POST)
     public String payOrder(
             @RequestParam(PARAM_ORDER_BANK_ACCOUNT_ID) int bankAccountID,
             @RequestParam(PARAM_ORDER_ID) int orderID) {
@@ -43,7 +43,7 @@ public class BankAccountController {
         return "";
     }
 
-    @RequestMapping(value = "/transferMoney", method = RequestMethod.POST)
+    @RequestMapping(value = "/transferMoney.do", method = RequestMethod.POST)
     public String transferMoney(
             @RequestParam(PARAM_BANK_ACCOUNT_ID) int srcBankAccountID,
             @RequestParam(PARAM_BANK_ACCOUNT_TRANSFER_ID) int dstBankAccountID,
@@ -55,7 +55,7 @@ public class BankAccountController {
         return "";
     }
 
-    @RequestMapping(value = "/addOrder", method = RequestMethod.POST)
+    @RequestMapping(value = "/addOrder.do", method = RequestMethod.GET)
     public String addOrder(
             @RequestParam(PARAM_ORDER_BANK_ACCOUNT_ID) int bankAccountID,
             @RequestParam(PARAM_ORDER_SUM) double sumOrder) {

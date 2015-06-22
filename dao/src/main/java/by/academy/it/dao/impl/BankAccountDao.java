@@ -7,6 +7,7 @@ import by.academy.it.entity.BankAccount;
 import by.academy.it.entity.Order;
 //import by.academy.it.utils.DBUtils;
 //import by.academy.it.utils.HibernateUtil;
+import by.academy.it.utils.HibernateUtil;
 import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -39,9 +40,10 @@ public class BankAccountDao extends BaseDao<BankAccount> implements IBankAccount
     @Override
     public void blockCreditCard(int bankAccountID, boolean isBlock) throws DaoException {
         try {
-            BankAccount bankAccount = (BankAccount) currentSession().get(BankAccount.class, bankAccountID);
+            Session session = HibernateUtil.getHibernateUtil().getSession();
+            BankAccount bankAccount = (BankAccount) session.get(BankAccount.class, bankAccountID);
             bankAccount.setBlocked(isBlock);
-            currentSession().flush();
+            session.flush();
         } catch (HibernateException e) {
             throw new DaoException(e);
         }
@@ -50,10 +52,11 @@ public class BankAccountDao extends BaseDao<BankAccount> implements IBankAccount
     @Override
     public void transferMoney(int bankAccountID, double transferSum) throws DaoException {
         try {
-            BankAccount bankAccount = (BankAccount) currentSession().get(BankAccount.class, bankAccountID);
+            Session session = HibernateUtil.getHibernateUtil().getSession();
+            BankAccount bankAccount = (BankAccount) session.get(BankAccount.class, bankAccountID);
             double sum = bankAccount.getSum();
             bankAccount.setSum(sum + transferSum);
-            currentSession().flush();
+            session.flush();
         } catch (HibernateException e) {
             throw new DaoException(e);
         }
@@ -70,7 +73,8 @@ public class BankAccountDao extends BaseDao<BankAccount> implements IBankAccount
         List list = Collections.emptyList();
         try {
             String hql = "select B.id from by.academy.it.entity.BankAccount B";
-            Query query = currentSession().createQuery(hql);
+            Session session = HibernateUtil.getHibernateUtil().getSession();
+            Query query = session.createQuery(hql);
              list = query.list();
         } catch (HibernateException e) {
             throw new DaoException(e);

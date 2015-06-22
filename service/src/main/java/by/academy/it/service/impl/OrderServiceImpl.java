@@ -34,7 +34,7 @@ public class OrderServiceImpl implements IOrderService {
     @Autowired
     private IBankAccountDao bankAccountDao;// = new BankAccountDao();
 
-    @Autowired
+//    @Autowired
     TransactionTemplate transactionTemplate;
 
     public TransactionTemplate getTransactionTemplate() {

@@ -1,12 +1,13 @@
 package by.academy.it.bean.impl;
 
-import by.academy.it.bean.*;
+import by.academy.it.bean.IClientListBean;
 
 public class ClientListBean implements IClientListBean {
     private int id;
     private String login;
     private String firstName;
     private String lastName;
+    private int bankAccountID;
 
     public int getId() {
         return id;
@@ -38,5 +39,13 @@ public class ClientListBean implements IClientListBean {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public int getBankAccountID() {
+        return bankAccountID;
+    }
+
+    public void setBankAccountID(int bankAccountID) {
+        this.bankAccountID = bankAccountID;
     }
 }

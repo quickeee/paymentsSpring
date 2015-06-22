@@ -1,4 +1,4 @@
-<%@ include file="/pages/include/include.jsp" %>
+<%@ include file="include/include.jsp" %>
 <html>
 <head>
     <title></title>
@@ -18,7 +18,7 @@
     </style>
 </head>
 <body>
-<%@ include file="/pages/include/linkMainPage.jsp" %>
+<%@ include file="include/linkMainPage.jsp" %>
 <fieldset>
     <legend><fmt:message key="info.client.title.group"/> <b><%=username%>
     </b></legend>
@@ -27,22 +27,21 @@
         <th><fmt:message key="info.client.title.id"/></th>
         <th><fmt:message key="info.client.title.firstname"/></th>
         <th><fmt:message key="info.client.title.lastname"/></th>
-        <%--<th><fmt:message key="info.client.title.role"/></th>--%>
         <th><fmt:message key="info.client.title.bankAccountID"/></th>
         </thead>
 
         <tr>
             <td>
-                ${client.login}
+                ${clientBean.login}
             </td>
             <td>
-                ${client.firstName}
+                ${clientBean.firstName}
             </td>
             <td>
-                ${client.lastName}
+                ${clientBean.lastName}
             </td>
             <td>
-                ${client.bankAccountID}
+                ${clientBean.bankAccountID}
             </td>
         </tr>
     </table>
@@ -56,16 +55,16 @@
         </thead>
         <tr>
             <td>
-                ${bankAccount.id}
+                ${clientBean.bankAccountID}
             </td>
             <td>
-                ${bankAccount.sum}
+                ${clientBean.sum}
             </td>
             <td>
-                ${bankAccount.blocked}
+                ${clientBean.blocked}
             </td>
             <td>
-                ${bankAccount.creditCardID}
+                ${clientBean.creditCardID}
             </td>
         </tr>
     </table>
@@ -76,7 +75,7 @@
         <th>sum</th>
         <th>paid</th>
         </thead>
-        <c:forEach var="order" items="${orderList}">
+        <c:forEach var="order" items="${clientBean.orderList}">
             <tr>
                 <td>
                         ${order.id}
@@ -90,7 +89,7 @@
                         paid
                     </c:if>
                     <c:if test="${!order.paid}">
-                        <a href="/PaymentControl?page=PAY_ORDER&bankAccountID=${bankAccount.id}&id=${order.id}">Pay</a>
+                        <a href="/payOrder.do?bankAccountID=${clientBean.bankAccountID}&id=${order.id}">Pay</a>
                     </c:if>
                 </td>
             </tr>
@@ -103,17 +102,17 @@
         </thead>
         <tr>
             <td>
-                <a href="/PaymentControl?page=BLOCK_CREDIT_CARD&bankAccountID=${client.bankAccountID}&blocked=true"><fmt:message
+                <a href="/blockBankAccount.do?bankAccountID=${clientBean.bankAccountID}&blocked=true"><fmt:message
                         key="create.client.title.caption.available.actions.block"/></a>
             </td>
         </tr>
         <tr>
             <td>
-                <form action="/PaymentControl" method="get">
+                <form action="/transferMoney.do" method="get">
                     <%--<a href="/PaymentControl?page=TRANSFER_MONEY&id=${client.bankAccountID}"><fmt:message--%>
                     <%--key="create.client.title.caption.available.actions.transfer"/></a>--%>
-                    <input type="hidden" name="page" value="TRANSFER_MONEY">
-                    <input type="hidden" name="id" value="${client.bankAccountID}">
+                    <%--<input type="hidden" name="page" value="TRANSFER_MONEY">--%>
+                    <input type="hidden" name="id" value="${clientBean.bankAccountID}">
                     <table width="70%">
                         <tr>
                             <th colspan="2"><fmt:message
@@ -137,7 +136,7 @@
                                         key="create.client.title.caption.available.actions.transfer.sum"/></label>
                                 <br>
                                 <input type="number" id="transfSum" name="bankAccountTransferSum"
-                                       max=${bankAccount.sum} value="0"/>
+                                       max=${clientBean.sum} value="0"/>
                             </td>
                         </tr>
                         <tfoot>

@@ -106,7 +106,7 @@ public class Constants {
     public static final String PAGE_TILES_REGISTRATION = "registration";
     public static final String PAGE_TILES_ADMIN_INFO_CLIENT = "clientControlService";
     public static final String PAGE_TILES_USER_INFO_CLIENT = "profileClient";
-    public static final String PAGE_TILES_LIST_CLIENTS = "listClient";
+    public static final String PAGE_TILES_LIST_CLIENTS = "listClients";
 
 
     public static final String PAGE_LIST_CLIENTS = "/pages/listClients.jsp";

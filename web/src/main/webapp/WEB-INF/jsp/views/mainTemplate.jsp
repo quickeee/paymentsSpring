@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"  
-    pageEncoding="ISO-8859-1"%>  
-  
+<%@ page language="java"%>
+<%@ include file="/WEB-INF/jsp/pages/include/include.jsp" %>
 <html>  
   <head>  
       

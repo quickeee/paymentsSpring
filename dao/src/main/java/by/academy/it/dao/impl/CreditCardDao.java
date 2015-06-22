@@ -4,6 +4,7 @@ import by.academy.it.dao.BaseDao;
 import by.academy.it.dao.ICreditCardDao;
 import by.academy.it.dao.exceptions.DaoException;
 import by.academy.it.entity.CreditCard;
+import by.academy.it.utils.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -32,7 +33,8 @@ public class CreditCardDao extends BaseDao<CreditCard> implements ICreditCardDao
     public CreditCard getCreditCardByBankAccountID(int bankAccountID) throws DaoException {
         try {
             String hql = "select C from by.academy.it.entity.CreditCard C,by.academy.it.entity.BankAccount B where B.id=:bankAccountID and B.creditCardID=:C.id";
-            Query query = currentSession().createQuery(hql);
+            Session session = HibernateUtil.getHibernateUtil().getSession();
+            Query query = session.createQuery(hql);
             query.setParameter("bankAccountID", bankAccountID);
             List result = query.list();
             for (Object creditCard : result) {

@@ -15,10 +15,10 @@
     }else{
         if (role == 0) {
             logout = "<a href=\"/PaymentControl?page=LOGOUT_USER\">logout</a>";
-            profile = "<a href=\"PaymentControl?page=list_clients\">client list</a>";
+            profile = "<a href=\"/listClient.do\">client list</a>";
             root = "Admin";
         } else{
-            logout = "<a href=\"/pages/createClient.jsp\">registration</a>";
+            logout = "<a href=\"/createClient.do\">registration</a>";
             root = "Guest";
         }
     }

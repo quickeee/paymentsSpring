@@ -18,7 +18,7 @@
 
    <definition extends="base.definition" name="login">
         <put-attribute name="title" value="Login"></put-attribute>
-        <put-attribute name="body" value="/WEB-INF/jsp/pages/login.jsp"></put-attribute>
+        <put-attribute name="body" value="/WEB-INF/jsp/pages/login1.jsp"></put-attribute>
     </definition>
 
     <definition extends="base.definition" name="registration">

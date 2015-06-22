@@ -6,17 +6,26 @@
             http://www.springframework.org/schema/security
             http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-    <http access-denied-page="/login.jsp">
-        <!--<intercept-url pattern="/news*" access="ROLE_ADMIN,ROLE_USER"/>-->
-        <!--<intercept-url pattern="/news/*" access="ROLE_ADMIN,ROLE_USER"/>-->
-        <!--<intercept-url pattern="/add/*" access="ROLE_ADMIN"/>-->
-        <!--<intercept-url pattern="/delete/*" access="ROLE_ADMIN"/>-->
-        <form-login login-page="/login.jsp" default-target-url="/index.do"
-                    authentication-failure-url="/login.html?error=true"/>
-        <logout logout-url="/logout.do" logout-success-url="/index.do"/>
+    <http access-denied-page="/error.do">
+        <form-login login-page="/login.do" default-target-url="/index.do"
+                    authentication-failure-url="/login.do?error=true"/>
+        <logout logout-url="/logout" logout-success-url="/index.do"/>
 
-        <remember-me/>
+        <remember-me data-source-ref="dataSource" key="crypt" token-validity-seconds="20"/>
     </http>
+
+
+    <!--<http auto-config="true" use-expressions="true">
+        <intercept-url pattern="/view/admin/**" access="hasRole('0')"/>
+        <form-login
+                login-page="/login1.jsp"
+                login-processing-url="/j_spring_security_check"
+                authentication-failure-url="/login.html?error=true"
+                username-parameter="j_username"
+                password-parameter="j_password"/>
+        <logout logout-success-url="/logout.do"/>
+        <remember-me/>
+    </http>-->
 
     <authentication-manager>
         <authentication-provider>
